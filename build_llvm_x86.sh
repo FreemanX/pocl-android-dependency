@@ -1,6 +1,6 @@
 # Scripts for building llvm
 
-INSTALL_DIR=$HOME/data/llvm9_x86-out/
+INSTALL_DIR=$HOME/data/llvm_x86-out/
 
 [ ! -d "$INSTALL_DIR" ] && mkdir $INSTALL_DIR
 
@@ -9,7 +9,7 @@ CXX=g++
 
 
 cmake -G "Unix Makefiles" \
-	-DLLVM_ENABLE_PROJECTS="clang;llvm;libclc" \
+	-DLLVM_ENABLE_PROJECTS="clang;llvm" \
 	-DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_C_COMPILER=$CC \

@@ -1,9 +1,9 @@
 #!/bin/bash
 # Scripts for building llvm
 
-INSTALL_DIR=$HOME/data/llvm9_arm64-out/
+INSTALL_DIR=$HOME/data/llvm_arm64-out/
 [ ! -d "$INSTALL_DIR" ] && mkdir $INSTALL_DIR
-TOOLCHAIN_PATH=$HOME/toolchains/ndk_r21-toolchain-arm64-api26
+TOOLCHAIN_PATH=your_standalone_toolchain_path
 TOOLCHAIN_BIN=$TOOLCHAIN_PATH/bin
 SYSROOT=$TOOLCHAIN_PATH/sysroot
 ARM_LIB_PATH=$HOME/data/Libs_ARM64
@@ -30,17 +30,17 @@ PYTHON_EXECUTABLE=$TOOLCHAIN_BIN/python #for android
 cmake -G "Unix Makefiles" \
 	-DCMAKE_CROSSCOMPILING=True \
 	-DLLVM_TARGET_ARCH=AArch64 \
-	-DLLVM_ENABLE_PROJECTS="clang;llvm;libclc" \
+	-DLLVM_ENABLE_PROJECTS="clang;llvm" \
 	-DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_C_COMPILER=$CC \
 	-DCMAKE_CXX_COMPILER=$CXX \
-	-DLLVM_TARGETS_TO_BUILD="AArch64;ARM" \
+	-DLLVM_TARGETS_TO_BUILD="AArch64" \
 	-DLLVM_DEFAULT_TARGET_TRIPLE=$TARGET_HOST \
 	-DLLVM_ENABLE_DIA_SDK=OFF \
-	-DLLVM_TABLEGEN=/media/pfxu/data/llvm-google/build/bin/llvm-tblgen \
-	-DCLANG_TABLEGEN=/media/pfxu/data/llvm-google/build/bin/clang-tblgen \
-	-DLIBCLANG_BUILD_STATIC=ON \
+	-DLLVM_TABLEGEN=path_to_your_host_build_directory/bin/llvm-tblgen \
+	-DCLANG_TABLEGEN=path_to_your_host_build_directory/bin/clang-tblgen \
+	-DLLVM_BUILD_LLVM_DYLIB=ON \
 	../llvm
 
 make -j4
